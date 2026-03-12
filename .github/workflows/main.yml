@@ -1,1 +1,505 @@
+<!doctype html>
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>无人机授粉喷药管理平台</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/new_index.css">
+    <style>
+		
+		
+        
+        .centerBox {
+            width: 75%;
+            margin-right: 15px;
+            background: transparent;
+        }
+
+        .boxFont {
+            font-size: 1.2vw;
+        }
+
+        .centerMainBox1 {
+            width: 100%;
+            height: 60.5%;
+        }
+
+        .centerMainBox2 {
+            width: 100%;
+            height: 38%;
+            position: relative;
+            margin-top: 15px;
+        }
+
+        .centerMainBox2 .first_border {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .boxTitle2 {
+            width: 100%;
+            height: 10%;
+            font-size: .6vw;
+            text-align: center;
+            line-height: 10%;
+            margin-top: 1vw;
+            color: #87CEFA;
+        }
+
+        .contList {
+            position: relative;
+            width: 70%;
+            height: 8vw;
+            margin: 1vw auto 0;
+
+        }
+
+        .content1 li {
+            display: none;
+        }
+
+        .baseBox {
+            width: 100%;
+            border: none;
+            background: none;
+        }
+
+        .boxTitle {
+            font-size: .8vw;
+            width: 38%;
+            margin-top: 1vw;
+            text-align: center;
+        }
+
+        .right {
+            float: right;
+        }
+
+        .baseBoxLeft {
+            width: 30%;
+            height: 95%;
+            position: relative;
+        }
+
+        .baseBoxRight {
+            width: 68%;
+            height: 100%;
+        }
+
+        .baseBoxLeft .first_border {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+
+        .baseBox1,
+        .baseBox2,
+        .baseBox3 {
+            position: relative;
+        }
+
+        .baseBox1 .hardware,
+        .baseBox2 img,
+        .baseBox3 img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .csbaseBox1 {
+            position: relative;
+            z-index: 999;
+        }
+
+        #canvas {
+            display: block;
+            margin: 0 auto;
+            width: 10vw;
+            height: 5vw;
+        }
+
+        .progress {
+            position: relative;
+        }
+
+        .progress img {
+            width: 12.5vw;
+            height: 2vw;
+            position: absolute;
+            top: .4vw;
+            right: -.2vw;
+        }
+
+        .progress .disease {
+            position: absolute;
+            top: .7vw;
+            left: .5vw;
+            color: #fff;
+            font-size: .8vw;
+        }
+
+        .progress .similar {
+            position: absolute;
+            top: .8vw;
+            left: 3vw;
+            color: #87CEFA;
+            font-size: .5vw;
+        }
+
+        /* 返回图标 */
+        .navLeft {
+            position: absolute;
+            top: 5%;
+            left: 35%;
+            width: 3.5%;
+            height: 8%;
+            z-index: 999;
+        }
+
+        .navLeft>img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+		<video autoplay muted loop id="background-video">
+		        <source src="img/bg.mp4" type="video/mp4">
+		        Your browser does not support the video tag.
+		    </video>
+		    <div class="gradient-overlay"></div>
+        <div class="nav">无人机授粉喷药管理平台</div>
+        <div class="nav_btn">
+            <div class="btn_left">
+                <div class="btn_list listActive">
+                    <a href="index.html" style="color: #87CEFA;">航线规划</a>
+                </div>
+                <div class="btn_list">
+                    <a href="ye.html" style="color: #87CEFA;">实景检测</a>
+                </div>
+                <div class="btn_list">
+                    <a href="chanpin.html" style="color: #87CEFA;">产品介绍</a>
+                </div>
+                
+            </div>
+            <div class="btn_right">
+                <div class="btn_list">
+                     <a href="chanpin1.html" style="color: #87CEFA;">产品技术</a>
+                </div>
+                <div class="btn_list" style="width: 150px;">
+                    <a href="taodai.html" style="color: #87CEFA;">成果展示</a>
+                </div>
+                
+            </div>
+        </div>
+        <div class="content">
+
+            <div class="centerBox">
+                <div class="baseBox centerMainBox1" style="height:70%">
+                    <div class="baseBoxLeft left">
+                        <div class="boxTitle" style="font-size: 1vw;">基础设置</div>
+                        <img src="img/left.png" class="first_border" alt="">
+                        <div class="control-panel">
+                            <div class="selection-container">
+                                <!-- 站点选择 -->
+                                <div class="dropdown">
+                                    <select id="station">
+                                        
+                                        <option >百度地图</option>
+                                        <option >高德地图</option>
+                                        <option >卫星地图(必应)</option>
+										
+										<option >卫星天地图</option>
+										<option >卫星地图(谷歌)</option>
+                                    </select>
+                                </div>
+                            
+                                <!-- 相机选择 -->
+                                <div class="dropdown">
+                                    <select id="station">
+                                        
+                                        <option >Air3(12MP)</option>
+                                        <option >Air3(48MP)中长焦</option>
+                                        <option >站点 3</option>
+										<option >Air3S(12MP)</option>
+										<option >Air3S(50MP)</option>
+										<option >Mavic3Pro(20MP)</option>
+										<option >Mini4Pro(12MP)</option>
+										<option >Mini4Pro(48MP)</option>
+										<option >Mavic 3E</option>
+										<option >Matrice 4E</option>
+										<option >Mavic3E长焦(12MP)</option>
+										<option >Air2(12MP)</option>
+                                    </select>
+                                </div>
+                            
+                            </div>
+
+                        <div class="info-box-container">
+                            <!-- 第一个合并后的 Box -->
+                            <div class="info-box">
+                                <div class="image-box">
+                                    <img src="./img/1.png" alt="图片 1" width="60" height="60">
+                                </div>
+                                <div class="text-box">
+                                    <div class="top-text">航迹长度（米）</div>
+                                    <div class="divider"></div>
+                                    <div class="bottom-text">998.4 m</div>
+                                </div>
+                                <div class="image-box">
+                                    <img src="./img/2.png" alt="图片 2" width="60" height="60">
+                                </div>
+                                <div class="text-box">
+                                    <div class="top-text">预计飞行时间</div>
+                                    <div class="divider"></div>
+                                    <div class="bottom-text">2 m 58 s</div>
+                                </div>
+                            </div>
+                            
+                            <!-- 第二个合并后的 Box -->
+                            <div class="info-box">
+                                <div class="image-box">
+                                    <img src="./img/3.png" alt="图片 3" width="60" height="60">
+                                </div>
+                                <div class="text-box">
+                                    <div class="top-text">航点数量（个）</div>
+                                    <div class="divider"></div>
+                                    <div class="bottom-text">4</div>
+                                </div>
+                                <div class="image-box">
+                                    <img src="./img/4.png" alt="图片 4" width="60" height="60">
+                                </div>
+                                <div class="text-box">
+                                    <div class="top-text">拍照数量（张）</div>
+                                    <div class="divider"></div>
+                                    <div class="bottom-text">66</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        
+                            
+                        
+                            <div class="settings">
+                                <div class="slider-container">
+                                    <label for="altitude" style="text-align: center; width: 100%;">相对高度（m）</label>
+                                    <input type="range" id="altitude" min="0" max="500" value="100">
+                                    <div class="value" style="text-align: center; width: 100%;">100</div>
+                                </div>
+                                <div class="slider-container">
+                                    <label for="speed" style="text-align: center; width: 100%;">飞行速度 (m/s)</label>
+                                    <input type="range" id="speed" min="0" max="20" value="10">
+                                    <div class="value" style="text-align: center; width: 100%;">10</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+
+
+                <!-- 左侧下部 -->
+                <div class="baseBox centerMainBox2" style="height:30%;">
+                    <img src="img/down2.png" class="first_border" alt="">
+                    <div class="boxTitle2" style="width:26%; font-size: 1vw;color: #87CEFA;">地点搜索</div>
+                    <div class="boxTitle2" style="width:26%; margin-left:22vw; margin-top: -1.3vw; font-size: 1vw;color: #87CEFA;">多模式设置</div>
+                    <div class="boxTitle2" style="width:26%; margin-left:53vw; margin-top: -1.1vw; font-size: 1vw;color: #87CEFA;">气象数据</div>
+                    
+                    <div class="right_box">
+						<div class="container">
+						        <div class="crow">
+						            <label>纬度</label>
+						            <input type="text" placeholder="经度" disabled>
+						            <button>GO</button>
+						        </div>
+						        <div class="crow">
+						            <label>经度</label>
+						            <input type="text" placeholder="纬度" disabled>
+						        </div>
+						        <div class="crow">
+						            <label>输出</label>
+						            <input type="text" value="E:\ap\AlanWayPoint(">
+						            <button>选择</button>
+						        </div>
+						        <div class="crow">
+						            <input type="text" placeholder="请输入城市名称" style="flex: 1;">
+						            <button>搜索</button>
+						        </div>
+						    </div>
+                        <div class="grow_data">
+							<div class="option-row">
+							                <div class="option" onclick="toggleOption(event)"><div class="option-box"></div><span class="option-text">航点简化模式</span></div>
+							                <div class="option" onclick="toggleOption(event)"><div class="option-box"></div><span class="option-text">正射航线</span></div>
+							            </div>
+							            <div class="option-row">
+							                <div class="option" onclick="toggleOption(event)"><div class="option-box"></div><span class="option-text">路径优化</span></div>
+							                <div class="option" onclick="toggleOption(event)"><div class="option-box"></div><span class="option-text">高程跟随</span></div>
+							            </div>
+							            <div class="option-row">
+							                <div class="option" onclick="toggleOption(event)"><div class="option-box"></div><span class="option-text">自动避障</span></div>
+							                <div class="option" onclick="toggleOption(event)"><div class="option-box"></div><span class="option-text">风速检测</span></div>
+							            </div>
+							            <div class="option-row">
+							                <div class="option" onclick="toggleOption(event)"><div class="option-box"></div><span class="option-text">云台控制</span></div>
+							                <div class="option" onclick="toggleOption(event)"><div class="option-box"></div><span class="option-text">实时传输</span></div>
+							            </div>
+							            <div class="option-row">
+							                <div class="option" onclick="toggleOption(event)"><div class="option-box"></div><span class="option-text">夜间模式</span></div>
+							                <div class="option" onclick="toggleOption(event)"><div class="option-box"></div><span class="option-text">地形匹配</span></div>
+							            </div>
+                            
+                        </div>
+                        <div class="weather_data">
+                            <div class="weather_text text_one">
+                                <span>温度：19℃</span>
+                                <span>湿度：52%</span>
+                                <span>风向：东南风</span>
+                                <span>风速：2m/s</span>
+                            </div>
+                            <div class="weather_text text_two">
+                                <span>降雨量：0mm</span>
+                                <span>蒸发量：0.326mm/h</span>
+                                <span>气压：0.326MPa</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div class="leftBox right" style="width:22%">
+                <div class="baseBox baseBox1" style="margin-bottom:15px;height:30%">
+                    <img src="img/right.png" class="hardware" alt="">
+                    <div class="csbaseBox1">
+                        <div class="boxTitle">硬件设备展示</div>
+                        
+                        <div class="content1">
+                            <ul>
+                                <li style="display: block;" class="contList">
+                                    <!-- 四个角描边 stat -->
+                                    <div class="leftTopLine1"></div>
+                                    <div class="leftTopLine2"></div>
+                                    <div class="rightTopLine1"></div>
+                                    <div class="rightTopLine2"></div>
+                                    <div class="leftBottomLine1"></div>
+                                    <div class="leftBottomLine2"></div>
+                                    <div class="rightBottomLine1"></div>
+                                    <div class="rightBottomLine2"></div>
+            
+                                    <div class="equipment_pic">
+                                        <img class="first" src="img/uva.png" alt="">
+                                        <img class="second" src="img/control.png" alt="">
+                                        <img class="third" src="img/camera.png" alt="">
+                                        <img class="fourth" src="img/detector.png" alt="">
+                                    </div>
+                                </li>
+            
+                            </ul>
+            
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="baseBox baseBox2" style="margin-bottom:15px; height:70.5%; text-align:center;">
+                    <img src="img/right2.png" alt="" style="display:block; margin:auto;">
+                    <div class="boxTitle2" style="width:40%; font-size: 1.5vw; margin-left: 6vw; margin-top: 2.4vw; color:#87CEFA; text-align:center;">角度设置</div>
+                    <div class="container" style="text-align:center;">
+                        <div class="layer">
+                            <div style="text-align"> <!-- 容器样式，用于居中对齐和顶部填充 -->
+                                <div class="title" style="font-size: 20px; color:#87CEFA; display: inline-block;margin-left: 0px;">航线角度</div> <!-- 标题样式，用于设置字体大小、颜色、行内块显示和居中 -->
+                            </div>
+                            <div class="slider-container" style="text-align:center;">
+                                <input type="range" id="altitude" min="-20.0" max="20.0" value="0.0" 
+                                       style="width: 300px; height: 1px; border-radius: 3px;"> <!-- 将滑动条变细 -->
+                                <div class="value" style="font-size: 20px; color:#87CEFA; margin-left: 130px;">0</div>
+                            </div>
+							
+                            
+                            <button class="action" style="font-size: 16px; color:#87CEFA; background-color:transparent; border:0px solid #87CEFA; box-shadow: inset 0 0 0 2px #87CEFA;margin-left: 5px;">启用测距</button>
+                            <button class="action" style="font-size: 16px; color:#87CEFA; background-color:transparent; border:0px solid #87CEFA; box-shadow: inset 0 0 0 2px #87CEFA;margin-left: 5px;">取消测距</button>
+                        </div>
+                        <div class="layer">
+							<div style="text-align"> <!-- 容器样式，用于居中对齐和顶部填充 -->
+							    <div class="title" style="font-size: 20px; color:#87CEFA; display: inline-block;margin-left: 0px;">航向重叠率</div> <!-- 标题样式，用于设置字体大小、颜色、行内块显示和居中 -->
+							</div>
+							<div class="slider-container" style="text-align:center;">
+							    <input type="range" id="altitude" min="0" max="100" value="0" 
+							           style="width: 300px; height: 1px; border-radius: 3px;"> <!-- 将滑动条变细 -->
+							    <div class="value" style="font-size: 20px; color:#87CEFA; margin-left: 130px;">74</div>
+							</div>
+                            
+                                
+                            <div style="text-align"> <!-- 容器样式，用于居中对齐和顶部填充 -->
+                                <div class="title" style="font-size: 20px; color:#87CEFA; display: inline-block;margin-left: 0px;">旁向重叠率</div> <!-- 标题样式，用于设置字体大小、颜色、行内块显示和居中 -->
+                            </div>
+                            <div class="slider-container" style="text-align:center;">
+                                <input type="range" id="altitude" min="0" max="100" value="0" 
+                                       style="width: 300px; height: 1px; border-radius: 3px;"> <!-- 将滑动条变细 -->
+                                <div class="value" style="font-size: 20px; color:#87CEFA; margin-left: 130px;">76</div>
+                            </div>
+                        </div>
+                        <div class="layer">
+                                    <div class="title" style="font-size: 24px; color:#87CEFA; display: inline-block;">云台角度</div>
+                                    <input type="number" class="input-value" style="margin-left: 50px;font-size: 20px; color:#87CEFA; width: 60px; text-align: center; border: 2px solid #87CEFA; background-color: transparent; border-radius: 5px;" value="-45">
+                                </div>
+                                <div class="layer">
+                                    <div class="title" style="font-size: 24px; color:#87CEFA; display: inline-block;">KMZ航点分割</div>
+                                    <input type="number" class="input-value" style="font-size: 20px; color:#87CEFA; width: 60px; text-align: center; border: 2px solid #87CEFA; background-color: transparent; border-radius: 5px;" value="450">
+                                </div>
+                        <div class="layer">
+                            
+							<button class="action" style="font-size: 16px; color:#87CEFA; background-color:transparent; border:0px solid #87CEFA; box-shadow: inset 0 0 0 2px #87CEFA;margin-left: 5px;">回退范围点</button>
+							    <button class="action" style="font-size: 16px; color:#87CEFA; background-color:transparent; border:0px solid #87CEFA; box-shadow: inset 0 0 0 2px #87CEFA;margin-left: 5px;">导出航点</button>
+							
+                        </div>
+                    </div>
+                </div>
+                
+            
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/dataScoll.js"></script>
+    <!-- 文字滚动 -->
+    
+    <!-- <script type="text/javascript" src="js/digitalScroll.js"></script> -->
+    
+	<script>
+	        document.addEventListener("DOMContentLoaded", function () {
+	            const sliders = document.querySelectorAll(".slider-container input[type='range']");
+	            
+	            sliders.forEach(slider => {
+	                const valueDisplay = slider.nextElementSibling;
+	                slider.addEventListener("input", function () {
+	                    valueDisplay.textContent = slider.value;
+	                });
+	            });
+	        });
+	    </script>
+		<script>
+		        function toggleOption(event) {
+		            event.target.classList.toggle('selected');
+		        }
+		    </script>
+
+</body>
+
+</html>
